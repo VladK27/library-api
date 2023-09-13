@@ -48,14 +48,17 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/", "/auth/**", "/static/css/**").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .anyRequest().hasAnyRole("ADMIN", "MANAGER")
+                                .anyRequest().permitAll()
+                                //.requestMatchers("/", "/auth/**", "/static/css/**").permitAll()
+                                //.requestMatchers("/admin/**").hasRole("ADMIN")
+                                //.anyRequest().hasAnyRole("ADMIN", "MANAGER")
                 )
                 .logout((logout) ->
                         logout
                                 .logoutUrl("/auth/logout")
                                 .logoutSuccessUrl("/auth/login")
+                )
+                .cors(cors -> cors.disable()
                 );
 
         return http.build();
