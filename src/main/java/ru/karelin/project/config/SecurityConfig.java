@@ -59,7 +59,8 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/auth/login")
                 )
                 .cors(cors -> cors.disable()
-                );
+                )
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }

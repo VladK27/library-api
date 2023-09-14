@@ -8,17 +8,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
-@Table(name = "Book")
+@Table(name = "Books")
 public class Book {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "title")
     @NotNull(message = "Name can't be empty")
@@ -32,10 +30,10 @@ public class Book {
     @Pattern(regexp = "([A-Z][a-z]{2,30} )+[A-Z][a-z]{2,30}|[A-Z][a-z]{2,30}", message = "Name should starts with big letter and contains only letters")
     private String author;
 
-    @Column(name = "year")
-    @NotNull(message = "Year can't be empty")
+    @Column(name = "year_of_publish")
+    @NotNull(message = "Year of publish can't be empty")
     @Max(value=2023, message = "Year must be under 2023")
-    private int year;
+    private int yearOfPublish;
 
     @Column(name = "date_of_issue")
     @Temporal(TemporalType.DATE)
@@ -48,15 +46,10 @@ public class Book {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
 
-    @Transient
-    public static final Set<String> propertiesSet = new HashSet<>(Set.of(
-            "id", "title", "author", "year", "owner"
-    ));
-
-    public Book(String title, String author, int year){
+    public Book(String title, String author, int yearOfPublish){
         this.title = title;
         this.author = author;
-        this.year = year;
+        this.yearOfPublish = yearOfPublish;
     }
 
     public boolean hasOwner(){

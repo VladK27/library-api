@@ -26,7 +26,7 @@ public class PagedResponse<T> {
     public PagedResponse() {
     }
 
-    public PagedResponse(List<T> content, int page, int totalPages, int size, long totalElements) {
+    public PagedResponse(List<T> content, int page, int size, int totalPages, long totalElements) {
         this.content = content;
         this.page = page;
         this.totalPages = totalPages;

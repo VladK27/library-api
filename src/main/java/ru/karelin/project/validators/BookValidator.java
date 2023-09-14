@@ -1,33 +1,32 @@
 package ru.karelin.project.validators;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import ru.karelin.project.exceptions.BadRequestException;
+import ru.karelin.project.exceptions.ResourceNotFoundException;
 import ru.karelin.project.models.Book;
+import ru.karelin.project.payload.response.ApiResponse;
 import ru.karelin.project.services.BookService;
 
 @Component
-public class BookValidator implements Validator {
-
+public class BookValidator implements Validator<Book>{
     private final BookService bookService;
 
-    @Autowired
     public BookValidator(BookService bookService) {
         this.bookService = bookService;
     }
 
     @Override
-    public boolean supports(Class<?> clazz) {
-        return Book.class.equals(clazz);
-    }
+    public void validate(Book item) {
+        try{
+            Book book = bookService.getBookByTitle(item.getTitle());
 
-    @Override
-    public void validate(Object target, Errors errors) {
-        Book book = (Book) target;
+            if(!book.getId().equals(item.getId())){
+                var apiResponse = new ApiResponse(Boolean.FALSE, "Book with this title already exists");
+                throw new BadRequestException(apiResponse);
+            }
 
-        if(bookService.show(book.getTitle()).isPresent()){
-            errors.rejectValue("title", "", "Book with this title already exist");
+        }catch(ResourceNotFoundException e){
+            return;
         }
     }
 }

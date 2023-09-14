@@ -11,14 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BooksRepository extends JpaRepository<Book, Integer> {
+public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByTitle(String title);
 
     List<Book> findByOwner(Person owner);
 
     Page<Book> findAllByOwner(Person person, Pageable pageable);
-
-    Page<Book> findAllByTitleStartingWith(String title, Pageable pageable);
-    Page<Book> findAllByAuthorStartingWith(String author, Pageable pageable);
-    Page<Book> findAllByYear(Integer year, Pageable pageable);
 }

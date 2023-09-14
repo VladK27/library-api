@@ -12,4 +12,10 @@ public class AppConstants {
 
     public static final int DAYS_BEFORE_OVERDUE = 10;
 
+    public static final String ID = "id";
+
+    public static final String BOOK = "book";
+
+    public static final String TITLE = "title";
+
 }
