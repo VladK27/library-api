@@ -19,7 +19,6 @@ import static ru.karelin.project.utility.AppConstants.*;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 public class BookService {
 
     private final BookRepository bookRepository;
@@ -38,7 +37,7 @@ public class BookService {
 
         Page<Book> books = bookRepository.findAll(pageable);
 
-        return new PagedResponse<Book>(
+        return new PagedResponse<>(
                 books.getContent(),books.getNumber(), books.getSize(), books.getTotalPages(), books.getTotalElements());
     }
 
@@ -46,7 +45,7 @@ public class BookService {
         Optional<Book> book = bookRepository.findById(id);
 
         if(book.isEmpty()){
-            throw new ResourceNotFoundException(BOOK, ID, String.valueOf(id));
+            throw new ResourceNotFoundException(BOOK, ID, id.toString());
         }
 
         book.get().setOverdue();
@@ -81,7 +80,16 @@ public class BookService {
             return bookRepository.save(bookToUpdate);
 
         }catch (EntityNotFoundException e){
-            throw new ResourceNotFoundException(BOOK, ID, String.valueOf(book.getId() ));
+            throw new ResourceNotFoundException(BOOK, ID, book.getId().toString() );
         }
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        if(!bookRepository.existsById(id)){
+            throw new ResourceNotFoundException(BOOK, ID, id.toString());
+        }
+
+        bookRepository.deleteById(id);
     }
 }

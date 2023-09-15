@@ -18,4 +18,16 @@ public class AppConstants {
 
     public static final String TITLE = "title";
 
+    public static final String READER = "reader";
+
+    public static final String NAME = "name";
+
+    public static final String SURNAME = "surname";
+
+    public static final String YEAR_OF_BIRTH = "yearOfBirth";
+
+    public static final String EMAIL = "email";
+
+
+
 }

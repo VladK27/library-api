@@ -5,15 +5,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.DirectFieldBindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.karelin.project.models.Book;
 import ru.karelin.project.payload.requests.BookRequest;
 import ru.karelin.project.payload.response.ApiResponse;
 import ru.karelin.project.payload.response.PagedResponse;
 import ru.karelin.project.services.BookService;
-import ru.karelin.project.services.PersonService;
 import ru.karelin.project.validators.BookValidator;
 import static ru.karelin.project.utility.AppConstants.*;
 
@@ -73,8 +70,11 @@ public class BookController {
         return new ResponseEntity<>(newBook, HttpStatus.OK);
     }
 
-    /*@DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteBook(@PathVariable(ID) Long id){
-        bookService.deleteById
-    }*/
+        bookService.deleteById(id);
+
+        var response = new ApiResponse(Boolean.TRUE, "book with id: " + id + " has been deleted");
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

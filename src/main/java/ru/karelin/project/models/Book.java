@@ -5,8 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -44,7 +42,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person owner;
+    private Reader owner;
 
     public Book(String title, String author, int yearOfPublish){
         this.title = title;
