@@ -64,6 +64,7 @@ public class ReaderService {
     }
 
     @Transactional
+    //todo catch EntityNotFoundException, wrap in custom exception
     public Reader updateReader(Reader reader) {
         Reader readerToUpdate = readerRepository.getReferenceById(reader.getId());
 

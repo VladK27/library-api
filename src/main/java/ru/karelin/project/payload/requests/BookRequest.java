@@ -1,9 +1,6 @@
 package ru.karelin.project.payload.requests;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 /**
@@ -24,5 +21,6 @@ public class BookRequest {
     private String author;
 
     @Max(value = 2023, message = "Publication date cannot be later than 2023")
+    @Min(value = 0, message = "Year must be more than zero")
     private Integer yearOfPublish;
 }

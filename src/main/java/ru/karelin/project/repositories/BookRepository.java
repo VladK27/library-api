@@ -20,4 +20,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Modifying
     @Query("DELETE FROM Book b WHERE b.id = :id")
     void deleteById(@Param("id") Long id);
+
+    Page<Book> findByOwner(Reader owner, Pageable pageable);
 }

@@ -31,6 +31,7 @@ public class Book {
     @Column(name = "year_of_publish")
     @NotNull(message = "Year of publish can't be empty")
     @Max(value=2023, message = "Year must be under 2023")
+    @Min(value = 0, message = "Year must be more than zero")
     private int yearOfPublish;
 
     @Column(name = "date_of_issue")

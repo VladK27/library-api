@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -47,6 +48,10 @@ public class Reader {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Book> books;
+
+    public List<Book> getBooks() {
+        return books == null ? new ArrayList<>() : books;
+    }
 
     public Reader(Long id, String name, String surname, Integer yearOfBirth) {
         this.id = id;

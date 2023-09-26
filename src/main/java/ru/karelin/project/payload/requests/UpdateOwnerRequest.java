@@ -8,6 +8,6 @@ import lombok.Data;
  * @author Vlad
  */
 @Data
-public class BookUpdateOwnerRequest {
+public class UpdateOwnerRequest {
     private Long ownerId;
 }
